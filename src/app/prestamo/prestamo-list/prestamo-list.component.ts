@@ -11,6 +11,7 @@ import { ClientsService } from 'src/app/clients/clients.service';
 import { Clients } from 'src/app/clients/model/Clients';
 import { Game } from 'src/app/game/model/Game';
 import { GameService } from 'src/app/game/game.service';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-prestamo-list',
@@ -29,7 +30,7 @@ export class PrestamoListComponent implements OnInit{
 
   filterClient: Clients;
   filterTitle: Game;
-  filterDate: Date;
+  filterDate: Moment;
 
   dataSource = new MatTableDataSource<Prestamo>();
   displayedColumns: string[] = ['id', 'name', 'client', 'datein', 'dateout', 'action'];
@@ -90,7 +91,7 @@ onSearch(): void {
 
     let title = this.filterTitle.title;
     let clientId = this.filterClient != null ? this.filterClient.id: null;
-    let datePrestamo = this.filterDate != null ? this.filterDate: null;
+    let datePrestamo = this.filterDate != null ? this.filterDate.toDate(): null;
 
     this.prestamoService.getFilterPrestamos(title, clientId, datePrestamo).subscribe(
         prestamos => this.prestamos = prestamos

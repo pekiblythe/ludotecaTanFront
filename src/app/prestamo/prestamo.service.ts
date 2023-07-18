@@ -49,12 +49,12 @@ export class PrestamoService {
     
         if (clientId != null) {
             if (params != '') params += "&";
-            params += "clientId="+clientId;
+            params += "clients_id="+clientId;
         }
 
         if (datePrestamo != null) {
             if (params != '') params += "&";
-            params += "datePrestamo="+datePrestamo.toLocaleDateString();
+            params += "datein="+datePrestamo.toISOString().slice(0,10);
         }
     
         let url = 'http://localhost:8080/prestamo'
