@@ -25,7 +25,7 @@ export class PrestamoService {
         return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {pageable:pageable});
     }
 
-    getFilterPrestamos(title?: String, clientName?: Number, datePrestamo?: Date): Observable<Prestamo[]>{
+    getFilterPrestamos(title?: Number, clientName?: Number, datePrestamo?: Date): Observable<Prestamo[]>{
         return this.http.get<Prestamo[]>(this.composeFindUrl(title, clientName, datePrestamo));
       }
 
@@ -40,11 +40,11 @@ export class PrestamoService {
         return this.http.delete('http://localhost:8080/prestamo/'+idPrestamo);
     }    
 
-    private composeFindUrl(title?: String, clientId?: Number, datePrestamo?:Date) : string {
+    private composeFindUrl(title?: Number, clientId?: Number, datePrestamo?:Date) : string {
         let params = '';
     
         if (title != null) {
-            params += 'title='+title;
+            params += 'game_id='+title;
         }
     
         if (clientId != null) {

@@ -89,7 +89,7 @@ export class PrestamoListComponent implements OnInit{
 
 onSearch(): void {
 
-    let title = this.filterTitle.title;
+    let title = this.filterTitle.id;
     let clientId = this.filterClient != null ? this.filterClient.id: null;
     let datePrestamo = this.filterDate != null ? this.filterDate.toDate(): null;
 
