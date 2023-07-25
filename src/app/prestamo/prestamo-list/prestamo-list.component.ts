@@ -64,13 +64,16 @@ export class PrestamoListComponent implements OnInit{
               direction: 'ASC'
           }]
       }
+      let title=null;
+      let clientName=null;
+      let datePrestamo=null;
 
       if (event != null) {
           pageable.pageSize = event.pageSize
           pageable.pageNumber = event.pageIndex;
       }
 
-      this.prestamoService.getPrestamos(pageable).subscribe(data => {
+      this.prestamoService.getFilterPrestamos(title, clientName, datePrestamo, pageable).subscribe(data => {
           this.dataSource.data = data.content;
           this.pageNumber = data.pageable.pageNumber;
           this.pageSize = data.pageable.pageSize;
@@ -84,17 +87,32 @@ export class PrestamoListComponent implements OnInit{
     this.filterClient = null;
     this.filterDate = null;
 
-    this.onSearch();
+    this.loadPage();
 }
 
 onSearch(): void {
 
-    let title = this.filterTitle.id;
+    let title = this.filterTitle != null ? this.filterTitle.id: null;
     let clientId = this.filterClient != null ? this.filterClient.id: null;
     let datePrestamo = this.filterDate != null ? this.filterDate.toDate(): null;
+    let pageable : Pageable =  {
+        pageNumber: this.pageNumber,
+        pageSize: this.pageSize,
+        sort: [{
+            property: 'id',
+            direction: 'ASC'
+        }]
+    }
 
-    this.prestamoService.getFilterPrestamos(title, clientId, datePrestamo).subscribe(
-        prestamos => this.prestamos = prestamos
+
+
+    this.prestamoService.getFilterPrestamos(title, clientId, datePrestamo, pageable).subscribe(
+        data => {
+            this.dataSource.data = data.content;
+            this.pageNumber = data.pageable.pageNumber;
+            this.pageSize = data.pageable.pageSize;
+            this.totalElements = data.totalElements;
+        }
     );
 }
 

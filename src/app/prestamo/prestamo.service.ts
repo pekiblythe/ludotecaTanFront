@@ -20,13 +20,13 @@ export class PrestamoService {
     getClients(): Observable<Clients[]>{
         return this.http.get<Clients[]>('http://localhost:8080/clients');
     }
-
+/*
     getPrestamos(pageable: Pageable): Observable<PrestamoPage> {
         return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {pageable:pageable});
     }
-
-    getFilterPrestamos(title?: Number, clientName?: Number, datePrestamo?: Date): Observable<Prestamo[]>{
-        return this.http.get<Prestamo[]>(this.composeFindUrl(title, clientName, datePrestamo));
+*/
+    getFilterPrestamos(title?: Number, clientName?: Number, datePrestamo?: Date, pageable?:Pageable): Observable<PrestamoPage>{
+        return this.http.post<PrestamoPage>(this.composeFindUrl(title, clientName, datePrestamo), {"pageable":pageable});
       }
 
     savePrestamos(prestamo: Prestamo): Observable<Prestamo> {
