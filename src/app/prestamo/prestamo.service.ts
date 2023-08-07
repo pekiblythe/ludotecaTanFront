@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Pageable } from '../core/model/page/Pageable';
 import { Prestamo } from './model/Prestamo';
 import { PrestamoPage } from './model/PrestamoPage';
 //import { PRESTAMO_DATA } from './model/mock-prestamos';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Clients } from '../clients/model/Clients';
 
 
@@ -14,7 +14,7 @@ import { Clients } from '../clients/model/Clients';
 export class PrestamoService {
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
     ) { }
 
     getClients(): Observable<Clients[]>{
@@ -33,7 +33,9 @@ export class PrestamoService {
         let url = 'http://localhost:8080/prestamo';
         if (prestamo.id != null) url += '/'+prestamo.id;
         
-        return this.http.put<Prestamo>(url, prestamo);
+        return this.http.put<Prestamo>(url, prestamo).pipe(
+            catchError(this.handleError)
+          );
     }
 
     deletePrestamos(idPrestamo : number): Observable<any> {
@@ -62,4 +64,22 @@ export class PrestamoService {
         if (params == '') return url;
         else return url + '?'+params;
     }
+
+    private handleError(error: HttpErrorResponse) {
+        //console.error(error.error.message);
+          /*  this.dialog.open(DialogConfirmationComponent, {
+                data: { 
+                    title: "La accion no se ha podido realizar", 
+                    description: error.error.message }
+            });    */          
+                
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong.
+         /* console.error(
+            `Backend returned code ${error.status}, body was: `, error.error);
+         */
+        // Return an observable with a user-facing error message.
+        // console.error(error.error);
+        return throwError(() => new Error(error.error.message));
+      }
 }

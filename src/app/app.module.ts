@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -10,6 +9,7 @@ import { AuthorModule } from './author/author.module';
 import { GameModule } from './game/game.module';
 import { ClientsModule } from './clients/clients.module';
 import { PrestamoModule } from './prestamo/prestamo.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,9 +25,12 @@ import { PrestamoModule } from './prestamo/prestamo.module';
     BrowserAnimationsModule,
     ClientsModule,
     PrestamoModule,
+    MatDialogModule
     
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

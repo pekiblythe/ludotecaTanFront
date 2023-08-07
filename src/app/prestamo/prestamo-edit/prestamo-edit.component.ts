@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Prestamo } from '../model/Prestamo';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Game } from 'src/app/game/model/Game';
 import { Clients } from 'src/app/clients/model/Clients';
 import { GameService } from 'src/app/game/game.service';
 import { PrestamoService } from '../prestamo.service';
 import { ClientsService } from 'src/app/clients/clients.service';
+import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
 
 @Component({
   selector: 'app-prestamo-edit',
@@ -24,6 +25,7 @@ export class PrestamoEditComponent implements OnInit{
         private gameService: GameService,
         private clientsService: ClientsService,
         private prestamoService: PrestamoService,
+        public dialog: MatDialog,
   ){}
   
 
@@ -66,9 +68,15 @@ ngOnInit(): void {
 
   onSave() {
     console.log('Datos a enviar:', this.prestamo);
-    this.prestamoService.savePrestamos(this.prestamo).subscribe(result => {
-      this.dialogRef.close();
-    });    
+    this.prestamoService.savePrestamos(this.prestamo).subscribe( {
+
+      complete:()=> this.dialogRef.close(),
+      error:(error)=>this.dialog.open(DialogConfirmationComponent, {
+        data: { 
+            title: "La accion no se ha podido realizar", 
+            description: error }
+          })  
+  })    
 }  
 
   onClose() {
