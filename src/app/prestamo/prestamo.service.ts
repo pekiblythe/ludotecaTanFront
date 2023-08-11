@@ -17,6 +17,8 @@ export class PrestamoService {
         private http: HttpClient,
     ) { }
 
+
+
     getClients(): Observable<Clients[]>{
         return this.http.get<Clients[]>('http://localhost:8080/clients');
     }
@@ -25,9 +27,12 @@ export class PrestamoService {
         return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {pageable:pageable});
     }
 */
-    getFilterPrestamos(title?: Number, clientName?: Number, datePrestamo?: Date, pageable?:Pageable): Observable<PrestamoPage>{
-        return this.http.post<PrestamoPage>(this.composeFindUrl(title, clientName, datePrestamo), {"pageable":pageable});
+    getFilterPrestamos(gameId?: Number, clientName?: Number, datePrestamo?: Date, pageable?:Pageable): Observable<PrestamoPage>{
+       // const filters = {game:gameId, clients:clientName, datein:datePrestamo}
+        return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {gameId:gameId, clientsId:clientName, datein:datePrestamo, pageable});
       }
+
+     
 
     savePrestamos(prestamo: Prestamo): Observable<Prestamo> {
         let url = 'http://localhost:8080/prestamo';
@@ -42,11 +47,11 @@ export class PrestamoService {
         return this.http.delete('http://localhost:8080/prestamo/'+idPrestamo);
     }    
 
-    private composeFindUrl(title?: Number, clientId?: Number, datePrestamo?:Date) : string {
+    private composeFindUrl(gameId?: Number, clientId?: Number, datePrestamo?:Date) : string {
         let params = '';
     
-        if (title != null) {
-            params += 'game_id='+title;
+        if (gameId != null) {
+            params += 'game_id='+gameId;
         }
     
         if (clientId != null) {

@@ -64,7 +64,7 @@ export class PrestamoListComponent implements OnInit{
               direction: 'ASC'
           }]
       }
-      let title=null;
+      let gameId=null;
       let clientName=null;
       let datePrestamo=null;
 
@@ -73,7 +73,7 @@ export class PrestamoListComponent implements OnInit{
           pageable.pageNumber = event.pageIndex;
       }
 
-      this.prestamoService.getFilterPrestamos(title, clientName, datePrestamo, pageable).subscribe(data => {
+      this.prestamoService.getFilterPrestamos(gameId, clientName, datePrestamo, pageable).subscribe(data => {
           this.dataSource.data = data.content;
           this.pageNumber = data.pageable.pageNumber;
           this.pageSize = data.pageable.pageSize;
@@ -92,7 +92,7 @@ export class PrestamoListComponent implements OnInit{
 
 onSearch(): void {
 
-    let title = this.filterTitle != null ? this.filterTitle.id: null;
+    let gameId = this.filterTitle != null ? this.filterTitle.id: null;
     let clientId = this.filterClient != null ? this.filterClient.id: null;
     let datePrestamo = this.filterDate != null ? this.filterDate.toDate(): null;
     let pageable : Pageable =  {
@@ -106,7 +106,7 @@ onSearch(): void {
 
 
 
-    this.prestamoService.getFilterPrestamos(title, clientId, datePrestamo, pageable).subscribe(
+    this.prestamoService.getFilterPrestamos(gameId, clientId, datePrestamo, pageable).subscribe(
         data => {
             this.dataSource.data = data.content;
             this.pageNumber = data.pageable.pageNumber;
