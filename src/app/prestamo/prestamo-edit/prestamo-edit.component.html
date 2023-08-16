@@ -25,7 +25,7 @@
         <mat-form-field>
             <mat-label>Fecha de inicio prestamo</mat-label>
             <input matInput [(ngModel)]="prestamo.datein" [matDatepicker]="picker1" name="datein">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             <mat-error>La fecha no puede estar vacía</mat-error>
@@ -34,7 +34,7 @@
         <mat-form-field>
             <mat-label>Fecha de fin prestamo</mat-label>
             <input matInput [(ngModel)]="prestamo.dateout" [matDatepicker]="picker2" name="dateout">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
             <mat-error>El fecha no puede estar vacío</mat-error>

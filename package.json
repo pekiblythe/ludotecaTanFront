@@ -33,6 +33,10 @@
     "@angular/cli": "~16.1.0",
     "@angular/compiler-cli": "^16.1.0",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.47.0",
+    "eslint-config-google": "^0.14.0",
     "husky": "^8.0.3",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
@@ -48,5 +52,9 @@
       "pre-push": "npm test",
       "...": "..."
     }
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.",
+  "main": ".eslintrc.js",
+  "author": "",
+  "license": "ISC"
 }

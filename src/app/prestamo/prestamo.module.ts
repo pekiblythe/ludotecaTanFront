@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MatOptionModule, } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule, } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 
@@ -46,6 +46,10 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/m
     {
       provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, 
       useValue: {useUtc: true}
+    },
+    { 
+      provide: MAT_DATE_LOCALE, 
+      useValue: 'en-GB' 
     }
 ]
 })
