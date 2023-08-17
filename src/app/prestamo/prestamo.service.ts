@@ -5,6 +5,8 @@ import { Prestamo } from './model/Prestamo';
 import { PrestamoPage } from './model/PrestamoPage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Clients } from '../clients/model/Clients';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmationComponent } from '../core/dialog-confirmation/dialog-confirmation.component';
 
 
 @Injectable({
@@ -14,6 +16,7 @@ export class PrestamoService {
 
     constructor(
         private http: HttpClient,
+        public dialog: MatDialog,
     ) { }
 
 
@@ -21,25 +24,37 @@ export class PrestamoService {
     getClients(): Observable<Clients[]>{
         return this.http.get<Clients[]>('http://localhost:8080/clients');
     }
-/*
-    getPrestamos(pageable: Pageable): Observable<PrestamoPage> {
-        return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {pageable:pageable});
-    }
-*/
+
     getFilterPrestamos(gameId?: number, clientName?: number, datePrestamo?: Date, pageable?:Pageable): Observable<PrestamoPage>{
-       // const filters = {game:gameId, clients:clientName, datein:datePrestamo}
         return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {gameId:gameId, clientsId:clientName, datein:datePrestamo, pageable});
       }
 
      
 
     savePrestamos(prestamo: Prestamo): Observable<Prestamo> {
+        const fechaInicio = new Date(prestamo.datein).getTime();
+        const fechaFin = new Date(prestamo.dateout).getTime();
+        const diff = (fechaFin - fechaInicio)/(1000*60*60*24);
+
+        if(Math.abs(diff)>=14){
+            this.dialog.open(DialogConfirmationComponent, {
+                data: { 
+                    title: "La accion no se ha podido realizar", 
+                    description: "El periodo de préstamo máximo solo puede ser de 14 días" 
+                }})
+            }else if(prestamo.datein>prestamo.dateout){
+                this.dialog.open(DialogConfirmationComponent, {
+                    data: { 
+                        title: "La accion no se ha podido realizar", 
+                        description: "La fecha de fin no puede ser anterior a la de inicio" 
+                    }})
+        }else{
         let url = 'http://localhost:8080/prestamo';
         if (prestamo.id != null) url += '/'+prestamo.id;
         
         return this.http.put<Prestamo>(url, prestamo).pipe(
             catchError(this.handleError)
-          );
+          );}
     }
 
     deletePrestamos(idPrestamo : number): Observable<unknown> {
@@ -70,20 +85,6 @@ export class PrestamoService {
     }
 
     private handleError(error: HttpErrorResponse) {
-        //console.error(error.error.message);
-          /*  this.dialog.open(DialogConfirmationComponent, {
-                data: { 
-                    title: "La accion no se ha podido realizar", 
-                    description: error.error.message }
-            });    */          
-                
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong.
-         /* console.error(
-            `Backend returned code ${error.status}, body was: `, error.error);
-         */
-        // Return an observable with a user-facing error message.
-        // console.error(error.error);
         return throwError(() => new Error(error.error.message));
       }
 }

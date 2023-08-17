@@ -69,7 +69,7 @@ ngOnInit(): void {
   onSave() {
     console.log('Datos a enviar:', this.prestamo);
     this.prestamoService.savePrestamos(this.prestamo).subscribe( {
-
+      
       complete:()=> this.dialogRef.close(),
       error:(error)=>this.dialog.open(DialogConfirmationComponent, {
         data: { 
