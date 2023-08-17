@@ -28,7 +28,7 @@ export class AuthorEditComponent implements OnInit {
     }
 
     onSave() {
-        this.authorService.saveAuthor(this.author).subscribe(result =>  {
+        this.authorService.saveAuthor(this.author).subscribe(() =>  {
             this.dialogRef.close();
         }); 
     }  

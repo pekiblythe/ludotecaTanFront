@@ -15,9 +15,9 @@ styleUrls: ['./author-list.component.scss']
 })
 export class AuthorListComponent implements OnInit {
 
-    pageNumber: number = 0;
-    pageSize: number = 5;
-    totalElements: number = 0;
+    pageNumber = 0;
+    pageSize = 5;
+    totalElements = 0;
 
     dataSource = new MatTableDataSource<Author>();
     displayedColumns: string[] = ['id', 'name', 'nationality', 'action'];
@@ -33,7 +33,7 @@ export class AuthorListComponent implements OnInit {
 
     loadPage(event?: PageEvent) {
 
-        let pageable : Pageable =  {
+        const pageable : Pageable =  {
             pageNumber: this.pageNumber,
             pageSize: this.pageSize,
             sort: [{
@@ -61,7 +61,7 @@ export class AuthorListComponent implements OnInit {
             data: {}
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(() => {
             this.ngOnInit();
         });      
     }  
@@ -71,7 +71,7 @@ export class AuthorListComponent implements OnInit {
             data: { author: author }
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(() => {
             this.ngOnInit();
         });    
     }
@@ -83,7 +83,7 @@ export class AuthorListComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.authorService.deleteAuthor(author.id).subscribe(result =>  {
+                this.authorService.deleteAuthor(author.id).subscribe(() =>  {
                     this.ngOnInit();
                 }); 
             }

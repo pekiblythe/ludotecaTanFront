@@ -20,9 +20,9 @@ import { Moment } from 'moment';
 })
 export class PrestamoListComponent implements OnInit{
 
-  pageNumber: number = 0;
-  pageSize: number = 5;
-  totalElements: number = 0;
+  pageNumber = 0;
+  pageSize = 5;
+  totalElements = 0;
     
   clients: Clients[];
   games: Game[];
@@ -56,7 +56,7 @@ export class PrestamoListComponent implements OnInit{
 
   loadPage(event?: PageEvent) {
 
-      let pageable : Pageable =  {
+      const pageable : Pageable =  {
           pageNumber: this.pageNumber,
           pageSize: this.pageSize,
           sort: [{
@@ -64,9 +64,9 @@ export class PrestamoListComponent implements OnInit{
               direction: 'ASC'
           }]
       }
-      let gameId=null;
-      let clientName=null;
-      let datePrestamo=null;
+      const gameId=null;
+      const clientName=null;
+      const datePrestamo=null;
 
       if (event != null) {
           pageable.pageSize = event.pageSize
@@ -92,10 +92,10 @@ export class PrestamoListComponent implements OnInit{
 
 onSearch(): void {
 
-    let gameId = this.filterTitle != null ? this.filterTitle.id: null;
-    let clientId = this.filterClient != null ? this.filterClient.id: null;
-    let datePrestamo = this.filterDate != null ? this.filterDate.toDate(): null;
-    let pageable : Pageable =  {
+    const gameId = this.filterTitle != null ? this.filterTitle.id: null;
+    const clientId = this.filterClient != null ? this.filterClient.id: null;
+    const datePrestamo = this.filterDate != null ? this.filterDate.toDate(): null;
+    const pageable : Pageable =  {
         pageNumber: this.pageNumber,
         pageSize: this.pageSize,
         sort: [{
@@ -121,7 +121,7 @@ onSearch(): void {
           data: {}
       });
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(() => {
           this.ngOnInit();
       });      
   }  
@@ -131,7 +131,7 @@ onSearch(): void {
           data: { prestamo: prestamo }
       });
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(() => {
           this.ngOnInit();
       });    
   }
@@ -143,7 +143,7 @@ onSearch(): void {
 
       dialogRef.afterClosed().subscribe(result => {
           if (result) {
-              this.prestamoService.deletePrestamos(prestamo.id).subscribe(result =>  {
+              this.prestamoService.deletePrestamos(prestamo.id).subscribe(() =>  {
                   this.ngOnInit();
               }); 
           }

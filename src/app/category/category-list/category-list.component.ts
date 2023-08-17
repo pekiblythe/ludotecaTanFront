@@ -31,7 +31,7 @@ export class CategoryListComponent implements OnInit {
         data:{}
       });
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(() => {
         this.ngOnInit;
       })
     }
@@ -41,7 +41,7 @@ export class CategoryListComponent implements OnInit {
         data: { category: category }
       });
   
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(() => {
         this.ngOnInit();
       });
     }
@@ -53,7 +53,7 @@ export class CategoryListComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.categoryService.deleteCategory(category.id).subscribe(result => {
+          this.categoryService.deleteCategory(category.id).subscribe(() => {
             this.ngOnInit();
           }); 
         }

@@ -31,7 +31,7 @@ export class ClientsListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.ngOnInit();
     });    
   }
@@ -41,7 +41,7 @@ export class ClientsListComponent implements OnInit {
       data: { clients }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }
@@ -53,7 +53,7 @@ export class ClientsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.clientsService.deleteClients(clients.id).subscribe(result => {
+        this.clientsService.deleteClients(clients.id).subscribe(() => {
           this.ngOnInit();
         }); 
       }

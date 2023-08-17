@@ -3,7 +3,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Pageable } from '../core/model/page/Pageable';
 import { Prestamo } from './model/Prestamo';
 import { PrestamoPage } from './model/PrestamoPage';
-//import { PRESTAMO_DATA } from './model/mock-prestamos';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Clients } from '../clients/model/Clients';
 
@@ -27,7 +26,7 @@ export class PrestamoService {
         return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {pageable:pageable});
     }
 */
-    getFilterPrestamos(gameId?: Number, clientName?: Number, datePrestamo?: Date, pageable?:Pageable): Observable<PrestamoPage>{
+    getFilterPrestamos(gameId?: number, clientName?: number, datePrestamo?: Date, pageable?:Pageable): Observable<PrestamoPage>{
        // const filters = {game:gameId, clients:clientName, datein:datePrestamo}
         return this.http.post<PrestamoPage>('http://localhost:8080/prestamo', {gameId:gameId, clientsId:clientName, datein:datePrestamo, pageable});
       }
@@ -43,11 +42,11 @@ export class PrestamoService {
           );
     }
 
-    deletePrestamos(idPrestamo : number): Observable<any> {
+    deletePrestamos(idPrestamo : number): Observable<unknown> {
         return this.http.delete('http://localhost:8080/prestamo/'+idPrestamo);
     }    
 
-    private composeFindUrl(gameId?: Number, clientId?: Number, datePrestamo?:Date) : string {
+    private composeFindUrl(gameId?: number, clientId?: number, datePrestamo?:Date) : string {
         let params = '';
     
         if (gameId != null) {
@@ -64,7 +63,7 @@ export class PrestamoService {
             params += "datein="+datePrestamo.toISOString().slice(0,10);
         }
     
-        let url = 'http://localhost:8080/prestamo'
+        const url = 'http://localhost:8080/prestamo'
     
         if (params == '') return url;
         else return url + '?'+params;

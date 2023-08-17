@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Game } from './model/Game';
-import { GAME_DATA } from './model/mock-games';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class GameService {
         private http: HttpClient
     ) { }
 
-    getGames(title?: String, categoryId?: number): Observable<Game[]> {
+    getGames(title?: string, categoryId?: number): Observable<Game[]> {
         return this.http.get<Game[]>(this.composeFindUrl(title, categoryId));
     }
 
@@ -27,7 +26,7 @@ export class GameService {
         return this.http.put<void>(url, game);
     }
 
-    private composeFindUrl(title?: String, categoryId?: number) : string {
+    private composeFindUrl(title?: string, categoryId?: number) : string {
         let params = '';
 
         if (title != null) {
@@ -39,7 +38,7 @@ export class GameService {
             params += "idCategory="+categoryId;
         }
 
-        let url = 'http://localhost:8080/game'
+        const url = 'http://localhost:8080/game'
 
         if (params == '') return url;
         else return url + '?'+params;

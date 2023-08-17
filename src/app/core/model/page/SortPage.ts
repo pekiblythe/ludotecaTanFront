@@ -1,4 +1,4 @@
 export class SortPage {
-    property: String;
-    direction: String;
+    property: string;
+    direction: string;
 }

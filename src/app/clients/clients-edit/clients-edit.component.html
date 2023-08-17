@@ -1,6 +1,6 @@
 <div class="container">
-    <h1 *ngIf="clients.id == null">Crear cliente</h1>
-    <h1 *ngIf="clients.id != null">Modificar cliente</h1>
+    <h1 *ngIf="clients.id === null">Crear cliente</h1>
+    <h1 *ngIf="clients.id !== null">Modificar cliente</h1>
 
     <form>
         <mat-form-field>

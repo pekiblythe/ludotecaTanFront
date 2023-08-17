@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Pageable } from '../core/model/page/Pageable';
 import { Author } from './model/Author';
 import { AuthorPage } from './model/AuthorPage';
-import { AUTHOR_DATA_LIST } from './model/mock-authors-list';
 
 @Injectable({
 providedIn: 'root'

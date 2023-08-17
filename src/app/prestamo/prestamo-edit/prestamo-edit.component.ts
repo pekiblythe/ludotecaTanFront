@@ -42,7 +42,7 @@ ngOnInit(): void {
       this.clients = clients;
 
       if(this.prestamo.clients !=null){
-        let clientFilter: Clients[] = clients.filter(clients => clients.id == this.data.prestamo.id);
+        const clientFilter: Clients[] = clients.filter(clients => clients.id == this.data.prestamo.id);
         if(clientFilter != null){
           this.prestamo.clients = clientFilter[0];
         }
@@ -55,7 +55,7 @@ ngOnInit(): void {
       this.games = games;
 
       if(this.prestamo.game != null){
-        let nameFilter: Game[] = games.filter(game => game.title == this.data.game.title);
+        const nameFilter: Game[] = games.filter(game => game.title == this.data.game.title);
         if(nameFilter != null){
           this.prestamo.game = nameFilter[0];
         }
